@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Touch Latency Lab</title>
+<style>
+:root {
+  color-scheme: dark;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: #101827;
+  color: #fff;
+  -webkit-text-size-adjust: 100%;
+}
+main {
+  max-width: 560px;
+  margin: auto;
+  padding: 20px 18px 35px;
+}
+.eyebrow {
+  color: #91a3bd;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.1px;
+}
+h1 { font-size: 26px; margin: 8px 0 4px; }
+.subtitle { color: #a9b9cf; font-size: 13px; }
+.divider {
+  height: 1px;
+  background: #334155;
+  margin: 20px 0;
+}
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.label {
+  color: #a9b9cf;
+  font-size: 11px;
+  text-transform: uppercase;
+}
+.condition { font-size: 22px; margin-top: 7px; }
+.counter {
+  background: #1e3049;
+  border-radius: 12px;
+  padding: 12px 18px;
+  text-align: center;
+  font-size: 22px;
+  font-weight: bold;
+}
+.progress {
+  background: #26344a;
+  height: 8px;
+  border-radius: 8px;
+  overflow: hidden;
+  margin: 18px 0;
+}
+#bar {
+  width: 0%;
+  height: 100%;
+  background: #5d9cff;
+}
+#touch {
+  height: 210px;
+  background: #d82938;
+  border-radius: 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 26px;
+  font-weight: 800;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+#touch small {
+  font-size: 12px;
+  font-weight: normal;
+  margin-top: 12px;
+}
+.metrics {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 16px;
+}
+.metric {
+  background: #1c293d;
+  padding: 15px;
+  border-radius: 12px;
+}
+.metric strong {
+  display: block;
+  font-size: 22px;
+  margin-top: 7px;
+  font-variant-numeric: tabular-nums;
+}
+.status {
+  margin: 16px 0;
+  padding: 14px;
+  background: #273951;
+  border-radius: 10px;
+  text-align: center;
+  color: #bfd2e8;
+  font-size: 13px;
+}
+.actions { display: flex; gap: 9px; }
+button {
+  border: none;
+  border-radius: 10px;
+  background: #376fe5;
+  color: white;
+  padding: 15px 12px;
+  font-size: 14px;
+  font-weight: 600;
+}
+#next { flex: 1; }
+#export { background: #26344a; }
+#reset {
+  background: transparent;
+  color: #9cacbf;
+  margin-top: 12px;
+  width: 100%;
+}
+button:disabled { opacity: .45; }
+.footer {
+  color: #91a3bd;
+  text-align: center;
+  font-size: 11px;
+  margin-top: 14px;
+  line-height: 1.5;
+}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">SISTEMAS OPERACIONAIS · EXPERIMENTO</div>
+  <h1>Touch Latency Lab</h1>
+  <div class="subtitle">iPhone 8 · Teste de responsividade</div>
+  <div class="divider"></div>
+
+  <div class="top">
+    <div>
+      <div class="label">Condição atual</div>
+      <div class="condition" id="condition">Sem carga</div>
+    </div>
+    <div class="counter" id="counter">0 / 30</div>
+  </div>
+
+  <div class="progress"><div id="bar"></div></div>
+
+  <div id="touch">
+    TOQUE AQUI
+    <small>Área de resposta visual</small>
+  </div>
+
+  <div class="metrics">
+    <div class="metric">
+      <div class="label">Média</div>
+      <strong id="mean">—</strong>
+    </div>
+    <div class="metric">
+      <div class="label">Mediana</div>
+      <strong id="median">—</strong>
+    </div>
+    <div class="metric">
+      <div class="label">P95</div>
+      <strong id="p95">—</strong>
+    </div>
+    <div class="metric">
+      <div class="label">Máximo</div>
+      <strong id="maximum">—</strong>
+    </div>
+  </div>
+
+  <div class="status" id="status">
+    Aguardando início da coleta
+  </div>
+
+  <div class="actions">
+    <button id="next">Próxima condição</button>
+    <button id="export">Exportar CSV</button>
+  </div>
+
+  <button id="reset">Reiniciar experimento</button>
+
+  <div class="footer">
+    30 toques por condição · 120 medições no total<br>
+    Intervalo interno até o próximo frame (não é latência física)
+  </div>
+</main>
+
+<script>
+"use strict";
+
+const CONDITIONS = [
+  "Sem carga", "Leve", "Média", "Pesada"
+];
+const LIMIT = 30;
+const STORAGE = "touch_latency_lab_v2";
+
+let state;
+
+function initialState() {
+  return {
+    index: 0,
+    records: [],
+    green: false
+  };
+}
+
+try {
+  const saved = JSON.parse(localStorage.getItem(STORAGE));
+  state = saved && Array.isArray(saved.records) &&
+    Number.isInteger(saved.index) &&
+    saved.index >= 0 && saved.index < CONDITIONS.length
+      ? saved : initialState();
+} catch (_) {
+  state = initialState();
+}
+
+const $ = id => document.getElementById(id);
+const touch = $("touch");
+let pending = false;
+
+function save() {
+  try {
+    localStorage.setItem(STORAGE, JSON.stringify(state));
+  } catch (_) {}
+}
+
+function currentRecords() {
+  return state.records.filter(
+    r => r.condition === CONDITIONS[state.index]
+  );
+}
+
+function percentile(sorted, fraction) {
+  return sorted[Math.ceil(sorted.length * fraction) - 1];
+}
+
+function update() {
+  const records = currentRecords();
+  const values = records.map(r => r.frameMs);
+  const sorted = [...values].sort((a,b) => a-b);
+  const n = values.length;
+
+  $("condition").textContent = CONDITIONS[state.index];
+  $("counter").textContent = n + " / " + LIMIT;
+  $("bar").style.width = (n / LIMIT * 100) + "%";
+
+  const fmt = v => Number.isFinite(v)
+    ? v.toFixed(2) + " ms" : "—";
+
+  $("mean").textContent = n
+    ? fmt(values.reduce((a,b) => a+b, 0) / n) : "—";
+  $("median").textContent = n
+    ? fmt(n % 2 ? sorted[(n-1)/2] :
+      (sorted[n/2-1]+sorted[n/2])/2) : "—";
+  $("p95").textContent = n
+    ? fmt(percentile(sorted, .95)) : "—";
+  $("maximum").textContent = n
+    ? fmt(sorted[n-1]) : "—";
+
+  touch.style.background = state.green
+    ? "#18a56c" : "#d82938";
+
+  $("status").textContent = n === LIMIT
+    ? "Condição concluída. Dados preservados."
+    : "Coleta em andamento: " + n + " de 30 toques.";
+
+  $("next").disabled =
+    n !== LIMIT || state.index === CONDITIONS.length - 1;
+
+  $("export").disabled = state.records.length === 0;
+}
+
+touch.addEventListener("touchstart", function(event) {
+  event.preventDefault();
+
+  if (pending || currentRecords().length >= LIMIT) return;
+  pending = true;
+
+  const eventTime = event.timeStamp;
+  const start = performance.now();
+
+  // A alteração de cor acontece imediatamente.
+  state.green = !state.green;
+  touch.style.background = state.green
+    ? "#18a56c" : "#d82938";
+
+  const processingMs = performance.now() - start;
+
+  requestAnimationFrame(function(frameTime) {
+    const frameMs = performance.now() - start;
+
+    state.records.push({
+      condition: CONDITIONS[state.index],
+      number: currentRecords().length + 1,
+      processingMs,
+      frameMs,
+      eventTime,
+      frameTime,
+      recordedAt: new Date().toISOString()
+    });
+
+    pending = false;
+    save();
+    update();
+  });
+}, {passive:false});
+
+$("next").addEventListener("click", function() {
+  if (pending || currentRecords().length !== LIMIT) return;
+  if (state.index >= CONDITIONS.length - 1) return;
+
+  state.index++;
+  state.green = false;
+  save();
+  update();
+});
+
+$("export").addEventListener("click", function() {
+  const rows = [
+    [
+      "condicao", "toque", "processamento_ms",
+      "proximo_frame_ms", "timestamp_evento",
+      "timestamp_frame", "data_utc"
+    ].join(",")
+  ];
+
+  for (const r of state.records) {
+    rows.push([
+      r.condition,
+      r.number,
+      r.processingMs.toFixed(3),
+      r.frameMs.toFixed(3),
+      r.eventTime.toFixed(3),
+      r.frameTime.toFixed(3),
+      r.recordedAt
+    ].join(","));
+  }
+
+  const blob = new Blob([rows.join("\n")], {
+    type: "text/csv;charset=utf-8"
+  });
+
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = "experimento_toque_v2.csv";
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+
+  setTimeout(() => URL.revokeObjectURL(url), 5000);
+});
+
+$("reset").addEventListener("click", function() {
+  if (!confirm("Apagar todas as medições?")) return;
+  state = initialState();
+  pending = false;
+  save();
+  update();
+});
+
+update();
+</script>
+</body>
+</html>

@@ -1,0 +1,111 @@
+﻿frente,condicao,medicao,quadros_240fps,latencia_ms
+Quantidade de tarefas,Sem carga,1,25,104.166667
+Quantidade de tarefas,Sem carga,2,26,108.333333
+Quantidade de tarefas,Sem carga,3,27,112.500000
+Quantidade de tarefas,Sem carga,4,25,104.166667
+Quantidade de tarefas,Sem carga,5,27,112.500000
+Quantidade de tarefas,Sem carga,6,26,108.333333
+Quantidade de tarefas,Sem carga,7,26,108.333333
+Quantidade de tarefas,Sem carga,8,24,100.000000
+Quantidade de tarefas,Sem carga,9,25,104.166667
+Quantidade de tarefas,Sem carga,10,25,104.166667
+Quantidade de tarefas,Sem carga,11,31,129.166667
+Quantidade de tarefas,Sem carga,12,27,112.500000
+Quantidade de tarefas,Sem carga,13,25,104.166667
+Quantidade de tarefas,Sem carga,14,24,100.000000
+Quantidade de tarefas,Sem carga,15,25,104.166667
+Quantidade de tarefas,Sem carga,16,25,104.166667
+Quantidade de tarefas,Sem carga,17,24,100.000000
+Quantidade de tarefas,Sem carga,18,26,108.333333
+Quantidade de tarefas,Sem carga,19,27,112.500000
+Quantidade de tarefas,Sem carga,20,24,100.000000
+Quantidade de tarefas,2 tarefas,1,27,112.500000
+Quantidade de tarefas,2 tarefas,2,28,116.666667
+Quantidade de tarefas,2 tarefas,3,28,116.666667
+Quantidade de tarefas,2 tarefas,4,23,95.833333
+Quantidade de tarefas,2 tarefas,5,26,108.333333
+Quantidade de tarefas,2 tarefas,6,28,116.666667
+Quantidade de tarefas,2 tarefas,7,26,108.333333
+Quantidade de tarefas,2 tarefas,8,27,112.500000
+Quantidade de tarefas,2 tarefas,9,28,116.666667
+Quantidade de tarefas,2 tarefas,10,27,112.500000
+Quantidade de tarefas,3 tarefas,1,27,112.500000
+Quantidade de tarefas,3 tarefas,2,20,83.333333
+Quantidade de tarefas,3 tarefas,3,23,95.833333
+Quantidade de tarefas,3 tarefas,4,19,79.166667
+Quantidade de tarefas,3 tarefas,5,21,87.500000
+Quantidade de tarefas,3 tarefas,6,19,79.166667
+Quantidade de tarefas,3 tarefas,7,20,83.333333
+Quantidade de tarefas,3 tarefas,8,22,91.666667
+Quantidade de tarefas,3 tarefas,9,18,75.000000
+Quantidade de tarefas,3 tarefas,10,21,87.500000
+Quantidade de tarefas,6 tarefas,1,27,112.500000
+Quantidade de tarefas,6 tarefas,2,21,87.500000
+Quantidade de tarefas,6 tarefas,3,21,87.500000
+Quantidade de tarefas,6 tarefas,4,24,100.000000
+Quantidade de tarefas,6 tarefas,5,21,87.500000
+Quantidade de tarefas,6 tarefas,6,23,95.833333
+Quantidade de tarefas,6 tarefas,7,22,91.666667
+Quantidade de tarefas,6 tarefas,8,23,95.833333
+Quantidade de tarefas,6 tarefas,9,21,87.500000
+Quantidade de tarefas,6 tarefas,10,20,83.333333
+Intensidade da CPU,Leve,1,26,108.333333
+Intensidade da CPU,Leve,2,25,104.166667
+Intensidade da CPU,Leve,3,25,104.166667
+Intensidade da CPU,Leve,4,21,87.500000
+Intensidade da CPU,Leve,5,24,100.000000
+Intensidade da CPU,Leve,6,22,91.666667
+Intensidade da CPU,Leve,7,22,91.666667
+Intensidade da CPU,Leve,8,20,83.333333
+Intensidade da CPU,Leve,9,21,87.500000
+Intensidade da CPU,Leve,10,22,91.666667
+Intensidade da CPU,Média,1,22,91.666667
+Intensidade da CPU,Média,2,19,79.166667
+Intensidade da CPU,Média,3,22,91.666667
+Intensidade da CPU,Média,4,18,75.000000
+Intensidade da CPU,Média,5,23,95.833333
+Intensidade da CPU,Média,6,19,79.166667
+Intensidade da CPU,Média,7,23,95.833333
+Intensidade da CPU,Média,8,23,95.833333
+Intensidade da CPU,Média,9,25,104.166667
+Intensidade da CPU,Média,10,21,87.500000
+Intensidade da CPU,Pesada,1,23,95.833333
+Intensidade da CPU,Pesada,2,22,91.666667
+Intensidade da CPU,Pesada,3,24,100.000000
+Intensidade da CPU,Pesada,4,22,91.666667
+Intensidade da CPU,Pesada,5,23,95.833333
+Intensidade da CPU,Pesada,6,25,104.166667
+Intensidade da CPU,Pesada,7,20,83.333333
+Intensidade da CPU,Pesada,8,22,91.666667
+Intensidade da CPU,Pesada,9,23,95.833333
+Intensidade da CPU,Pesada,10,24,100.000000
+Duração da sobrecarga,10 s,1,30,125.000000
+Duração da sobrecarga,10 s,2,23,95.833333
+Duração da sobrecarga,10 s,3,22,91.666667
+Duração da sobrecarga,10 s,4,23,95.833333
+Duração da sobrecarga,10 s,5,22,91.666667
+Duração da sobrecarga,10 s,6,26,108.333333
+Duração da sobrecarga,10 s,7,26,108.333333
+Duração da sobrecarga,10 s,8,27,112.500000
+Duração da sobrecarga,10 s,9,25,104.166667
+Duração da sobrecarga,10 s,10,24,100.000000
+Duração da sobrecarga,30 s,1,30,125.000000
+Duração da sobrecarga,30 s,2,26,108.333333
+Duração da sobrecarga,30 s,3,22,91.666667
+Duração da sobrecarga,30 s,4,20,83.333333
+Duração da sobrecarga,30 s,5,24,100.000000
+Duração da sobrecarga,30 s,6,26,108.333333
+Duração da sobrecarga,30 s,7,26,108.333333
+Duração da sobrecarga,30 s,8,25,104.166667
+Duração da sobrecarga,30 s,9,27,112.500000
+Duração da sobrecarga,30 s,10,24,100.000000
+Duração da sobrecarga,60 s,1,24,100.000000
+Duração da sobrecarga,60 s,2,27,112.500000
+Duração da sobrecarga,60 s,3,24,100.000000
+Duração da sobrecarga,60 s,4,25,104.166667
+Duração da sobrecarga,60 s,5,24,100.000000
+Duração da sobrecarga,60 s,6,22,91.666667
+Duração da sobrecarga,60 s,7,22,91.666667
+Duração da sobrecarga,60 s,8,23,95.833333
+Duração da sobrecarga,60 s,9,25,104.166667
+Duração da sobrecarga,60 s,10,24,100.000000
