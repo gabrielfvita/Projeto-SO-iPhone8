@@ -37,3 +37,18 @@ Foi utilizado **o mesmo** `carga_cpu.py`, executando `python3 ~/carga_cpu.py pes
 O HTML da aplicação permite interação visual dos graficos com os dados reais obtidos durante o experimento em cada uma das frentes. A análise de latência relatada no trabalho foi feita pela contagem de quadros em vídeos gravados a 240 FPS (1 quadro ≈ 4,1667 ms).
 
 Visualização online: https://graceful-fox-833bd9.netlify.app/
+
+## Evidências experimentais
+
+A pasta `evidencias/` contém registros em vídeo dos experimentos realizados no iPhone 8, incluindo as condições sem carga e com diferentes níveis de sobrecarga.
+
+Devido ao limite de 100 MB por arquivo imposto pelo GitHub, os seguintes vídeos foram comprimidos para permitir sua inclusão no repositório:
+
+- **Sem carga:** `sem_carga_comprimido.mp4`
+- **Intensidade pesada:** `intensidade_pesada_comprimido.mp4`
+
+A compressão foi realizada utilizando FFmpeg, mantendo a resolução e a taxa de quadros dos arquivos de origem, sem aplicação de filtros de redução de FPS.
+
+Os arquivos originais foram preservados separadamente, e as medições apresentadas no relatório foram obtidas a partir dos registros originais, não das versões comprimidas.
+
+**Caso seja necessário verificar os registros sem compressão, podemos disponibilizar os vídeos originais s ao professor mediante solicitação.**
